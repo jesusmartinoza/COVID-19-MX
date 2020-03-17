@@ -1,30 +1,65 @@
 @import url("https://fonts.googleapis.com/css?family=Nothing+You+Could+Do|Rubik:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap");
 
 body {
-  background: #001C22;
+  background-color: #001C22;
   color: white;
   font-family: "Rubik", sans-serif;
   font-weight: normal;
   font-style: normal;
+  margin: 0;
+  padding: 0;
+}
+h1 {
+  background-color: #00313B;
+  margin: 0;
+  padding: 0.5em;
+  text-align: center;
 }
 
 .card {
   border-radius: 12px;
-  background: #00232A;
+  background-color: #00232A;
   box-shadow: 0px -9px 17px 7px rgba(0,0,0,0.11);
   -webkit-box-shadow: 0px -9px 17px 7px rgba(0,0,0,0.11);
   -moz-box-shadow: 0px -9px 17px 7px rgba(0,0,0,0.11);
+  margin: 1em 1em 1em 0;
   overflow: hidden;
   padding: 0 !important;
 }
+.card-content {
+  padding: 1em;
+}
 .card-title {
-  background: #05272E;
+  background-color: #05272E;
   height: 32px;
   line-height: 1.7; /* Hacky way to vertical center */
   padding: 0.5em 1em;
 }
 .card-title h3 {
   margin: 0;
+}
+.center {
+  text-align: center;
+}
+.date-container {
+  padding: 2em;
+}
+.date-container span {
+  font-size: 24px;
+  font-weight: 500;
+}
+.date-picker {
+  background-color: transparent;
+  border-width: 0 0 2px;
+  border-color: #00313B;
+  color: white;
+  font-size: 24px;
+  margin-left: 0.5em;
+  outline: 0;
+  text-align: center;
+}
+.date-picker::placeholder {
+  color: #7F9194;
 }
 
 #map {
