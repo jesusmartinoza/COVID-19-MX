@@ -5,6 +5,10 @@ import requests
 import camelot
 import pandas as pd
 import glob
+from tracker.models import State
+from tracker.models import ConfirmedCase
+from tracker.models import SuspectedCase
+from django.utils import timezone
 
 def index(request):
     return render(request, 'tracker/index.html')
@@ -13,9 +17,9 @@ def downloadPDF(url, filename):
     """
     Download file from given {url} and store file in disk
 
-    Parameters:
-       url (String): URL of file to download
-       filename (String): Name of the file to store in disk without .pdf extension
+    Arguments:
+        url -- File to download
+        filename -- Name of the file to store in disk without .pdf extension
     """
     url = url
     r = requests.get(url, stream=True)
@@ -26,6 +30,12 @@ def downloadPDF(url, filename):
 def getPagesNumber(filename):
     """
     Read PDF file and return number of pages
+
+    Arguments:
+        filename -- PDF to read without .pdf extension
+
+    Return:
+        Number of PDF pages
     """
     file = open(f'tracker/files/{filename}.pdf', 'rb')
     file_reader = PyPDF2.PdfFileReader(file)
@@ -36,8 +46,8 @@ def parsePDF(filename):
     """
     Read PDF file and then create a CSV equivalent
 
-    Parameters:
-       filename (String): Name of the file to read. Without extension.
+    Arguments:
+        filename -- PDF to read without .pdf extension
     """
     print(f'Parsing file... {filename}')
 
@@ -61,4 +71,27 @@ def parsePDF(filename):
 
     combined_csv.to_csv(f'tracker/files/final_{filename}.csv', index=False, encoding='utf-8-sig')
 
+def csvToDatabase(filename):
+    """
+    Read CSV file and store values in Sqlite Database
+        Arguments:
+            filename -- PDF to read without .pdf extension
+    """
+    df = pd.read_csv(f'tracker/files/final_{filename}.csv')
+
+    for idx, row in df.iterrows():
+        state = State(name=row[1].replace('*', ''), latitude=0, longitude=0) # TODO: Fetch latitude from somewhere. Now they are edited manually in /admin D;
+        state.save()
+
+        case = ConfirmedCase(id=row[0],
+                             state_id=state.id,
+                             sex=(1 if row[2] == 'M' else 2),
+                             age=row[3],
+                             symptoms_date= datetime.strptime(row[4], '%d/%m/%Y').date(),
+                             origin_country=row[6],
+                             healed=('*' in row[1]) # '*' indicates a healed case
+                            )
+        case.save()
+
 parsePDF('confirmed_cases')
+csvToDatabase('confirmed_cases')
