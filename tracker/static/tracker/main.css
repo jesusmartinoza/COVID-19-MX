@@ -6,10 +6,20 @@ body {
   font-family: "Rubik", sans-serif;
   font-weight: normal;
   font-style: normal;
+  font-size: 18px;
   margin: 0;
   padding: 0;
 }
-h1 {
+footer {
+  background-color: #00313B;
+  padding: 2em;
+  font-size: 14px;
+  position: relative;
+}
+footer a {
+  color: #FFCD01;
+}
+nav {
   background-color: #00313B;
   margin: 0;
   padding: 0.5em;
@@ -23,12 +33,10 @@ h1 {
   -webkit-box-shadow: 0px -9px 17px 7px rgba(0,0,0,0.11);
   -moz-box-shadow: 0px -9px 17px 7px rgba(0,0,0,0.11);
   margin: 1em 1em 1em 0;
-  min-height: 250px;
   overflow: hidden;
   padding: 0 !important;
 }
 .card-content {
-  padding: 1em;
   position: relative;
 }
 .card-title {
@@ -63,8 +71,25 @@ h1 {
 .date-picker::placeholder {
   color: #7F9194;
 }
+.total img {
+  height: 48px;
+  margin-bottom: 0.5em;
+  margin-right: 0.5em;
+}
+.total div {
+  display: flex;
+  line-height: 2.4;
+}
+.total span {
+  font-size: 20px;
+  line-height: 2.1;
+  padding-left: 0.5em;
+}
 .mt-3 { /** Margin-Top inspired by Bootstrap **/
   margin-top: 3em !important;
+}
+.p-1 {
+  padding: 1em !important;
 }
 
 #center-button {
@@ -85,7 +110,12 @@ h1 {
   width: 24px;
 }
 #map {
-  height: 450px;
-  margin: -1em;
-  width: 105%;
+  height: 540px;
+  width: 100%;
+}
+
+@media (max-width:640px) {
+  .card {
+    margin: 1em;
+  }
 }

@@ -37,7 +37,8 @@ function loadMap() {
         keyboardPan: false,
         keyboardZoom: false,
         mouseWheelZoom: false,
-        select: false
+        select: false,
+        onFocusOnly: true
     }),
   });
 
@@ -54,7 +55,8 @@ function loadMap() {
 document.getElementById('center-button').onclick = function() {
   map.getView().animate({
     center: ol.proj.fromLonLat([-102.341600, 23.568975]),
-    duration: 1500
+    duration: 1500,
+    zoom: 4.8
   });
 }
 
