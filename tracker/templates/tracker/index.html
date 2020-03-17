@@ -47,7 +47,7 @@
           <div class="card">
             <div class="card-title"><h3>Porcentaje</h3></div>
             <div class="card-content">
-              <div id="chart2"></div>
+              <div id="donut-chart"></div>
             </div>
           </div>
         </div>
@@ -84,112 +84,4 @@
   <script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script type="module" src="{% static 'tracker/main.js' %}"></script>
-
-  <!-- TODO: Fetch data with API and not like this >.<  -->
-  <script type="text/javascript">
-    /**
-     * Chart - TOTAL DEL PAIS
-     */
-    var donutOptions = {
-      series: [{{total_confirmed}}, {{total_suspected}}, {{total_healed}},],
-      theme: {
-        mode: 'dark'
-      },
-      chart: {
-        type: "donut",
-        background: '#00232A',
-        width: '100%',
-      },
-      colors: ['#FF4560', '#FFCD01', '#00E396'],
-      labels: ["Confirmados", "Sospechosos", "Recuperados"],
-      legend: {
-        fontSize: '16px',
-        position: 'bottom',
-        horizontalAlign: 'center',
-        floating: false,
-      },
-      responsive: [
-        {
-          breakpoint: 400,
-          options: {
-            legend: {
-              show: false
-            }
-          }
-        }
-      ]
-    };
-
-    var chart2 = new ApexCharts(document.querySelector('#chart2'), donutOptions);
-    chart2.render();
-
-    var t = JSON.parse("{{ states|escapejs }}");
-    console.log(t);
-
-    /**
-     * Chart - CASOS POR ESTADO
-     */
-    var options = {
-      theme: {
-        mode: 'dark',
-        palette: 'palette1'
-      },
-      series: [
-        {
-          name: "Confirmados",
-          data: [44, 1, 41, 37, 22, 43, 21]
-        },
-        {
-          name: "Sospechosos",
-          data: [53, 32, 33, 52, 13, 43, 32]
-        },
-      ],
-      chart: {
-        type: "bar",
-        background: '#00232A',
-        width: '100%',
-        height: 350,
-        stacked: true,
-        toolbar: {
-          show: false
-        }
-      },
-      plotOptions: {
-        bar: {
-          horizontal: true
-        }
-      },
-      stroke: {
-        width: 1,
-        colors: ["#fff"]
-      },
-      xaxis: {
-        categories: ['CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX']
-      },
-      yaxis: {
-        title: {
-          text: undefined
-        }
-      },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return val + "K";
-          }
-        }
-      },
-      fill: {
-        opacity: 1
-      },
-      legend: {
-        position: "top",
-        horizontalAlign: "left",
-        offsetX: 40
-      }
-    };
-
-    var chart = new ApexCharts(document.querySelector('#chart'), options);
-    chart.render();
-  </script>
-
 </html>

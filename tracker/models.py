@@ -9,7 +9,7 @@ class State(models.Model):
         unique_together = ['name']
 
     def __str__(self):
-        return self.name
+        return self.name + ' | ' + str(self.latitude) + ' | ' + str(self.longitude)
 
 class ConfirmedCase(models.Model):
     state_id = models.ForeignKey(State, on_delete=models.CASCADE)
