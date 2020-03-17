@@ -3,12 +3,36 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
+  <link rel="canonical" href="https://overflow.ai">
     <title>Coronavirus. Mapa de México por estado</title>
+    <meta name="description" content="Seguimiento del Covid-19 en México. Mapa interactivo actualizado con datos del gobierno.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.2.1/css/ol.css" type="text/css">
     <link rel="stylesheet" type="text/css" href="{% static 'tracker/fluidable-min.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'tracker/main.css' %}">
+    <link rel="shortcut icon" href="{% static 'tracker/favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'tracker/favicon.ico' %}" type="image/x-icon">
+
+    <!-- Default image for social sharing -->
+    <meta property="og:image" content="{% static 'tracker/coronavirus_dashboard_mexico.png' %}">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1634">
+    <meta property="og:image:height" content="891">
+    <meta property="og:type" content="website" />
+
+    <meta property="og:title" content="Coronavirus | Mapa de México por estado" />
+    <meta property="og:description" content="Seguimiento del Covid-19 en México. Mapa interactivo actualizado con datos del gobierno.">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55847702-8"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-55847702-8');
+    </script>
   </head>
 
   <body>
