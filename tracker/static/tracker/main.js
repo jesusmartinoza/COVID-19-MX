@@ -70,32 +70,32 @@ var options = {
 
 var chart = new ApexCharts(document.querySelector('#chart'), options);
 chart.render();
-
-var donutOptions = {
-      series: [44, 55, 13, 43, 22],
-      chart: {
-        type: "donut"
-      },
-      labels: ["Team A", "Team B", "Team C", "Team D", "Team E"],
-      responsive: [
-        {
-          breakpoint: 480,
-          options: {
-            chart: {
-              width: 200
-            },
-            legend: {
-              position: "bottom"
-            }
-          }
-        }
-      ]
-    };
-
-var chart2 = new ApexCharts(document.querySelector('#chart2'), donutOptions);
-chart2.render();
-var chart3 = new ApexCharts(document.querySelector('#chart3'), donutOptions);
-chart3.render();
+// 
+// var donutOptions = {
+//       series: [44, 55, 13],
+//       chart: {
+//         type: "donut"
+//       },
+//       labels: ["Confirmados", "Sospechosos", "Recuperados"],
+//       responsive: [
+//         {
+//           breakpoint: 480,
+//           options: {
+//             chart: {
+//               width: 200
+//             },
+//             legend: {
+//               position: "bottom"
+//             }
+//           }
+//         }
+//       ]
+//     };
+//
+// var chart2 = new ApexCharts(document.querySelector('#chart2'), donutOptions);
+// chart2.render();
+// var chart3 = new ApexCharts(document.querySelector('#chart3'), donutOptions);
+// chart3.render();
 
 var map;
 

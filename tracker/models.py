@@ -5,6 +5,12 @@ class State(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
 
+    class Meta:
+        unique_together = ['name']
+
+    def __str__(self):
+        return self.name
+
 class ConfirmedCase(models.Model):
     state_id = models.ForeignKey(State, on_delete=models.CASCADE)
     sex = models.SmallIntegerField() # https://en.wikipedia.org/wiki/ISO/IEC_5218
