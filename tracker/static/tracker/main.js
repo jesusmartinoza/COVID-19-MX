@@ -36,6 +36,7 @@ fetch(window.location.href + 'api')
     // Load charts and map
     loadStatesChart();
     drawDataOnMap();
+    drawClusters();
   });
 
 /**
@@ -61,6 +62,7 @@ function loadStatesChart() {
     chart: {
       type: "bar",
       background: '#00232A',
+      width: '100%',
       stacked: true,
       toolbar: {
         show: false
@@ -73,7 +75,7 @@ function loadStatesChart() {
     },
     stroke: {
       width: 1,
-      colors: ["#fff"]
+      colors: ["#00313B"]
     },
     xaxis: {
       categories: Object.keys(casesByState)
@@ -130,7 +132,7 @@ function loadDonutChart(data) {
   chart2.render();
 }
 
-function addGeoJsonLayer(file, color) {
+function addGeoJsonLayer(file, color, selectable = false) {
   var geojsonSource = new ol.source.Vector({
     url: file,
     format: new ol.format.GeoJSON()
@@ -141,8 +143,8 @@ function addGeoJsonLayer(file, color) {
     source: geojsonSource,
     style: new ol.style.Style({
       stroke: new ol.style.Stroke({
-        color: 'black',
-        width: 1
+        color: '#00232A',
+        width: 1.2
       }),
       fill: new ol.style.Fill({
         color: color
@@ -150,6 +152,7 @@ function addGeoJsonLayer(file, color) {
     })
   });
 
+  geojsonLayer.set('selectable', selectable);
   map.addLayer(geojsonLayer);
 }
 
@@ -176,9 +179,21 @@ function loadMap() {
   addGeoJsonLayer('/static/tracker/america.geojson', '#26444A');
   addGeoJsonLayer('/static/tracker/mexstates.geojson', '#366E8C');
 
-  var selectPointerMove = new ol.interaction.Select({
-    condition: ol.events.condition.pointerMove
+  var selectEuropa = new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        color: "white",
+        width: 1
+    })
   });
+  var selectPointerMove = new ol.interaction.Select({
+    condition: ol.events.condition.pointerMove,
+    multi: true,
+    layers: function(layer) {
+      return layer.get('selectable') == true;
+    },
+    //style: [selectEuropa]
+  });
+  //map.addInteraction(selectPointerMove);
 
   // Button listener to center map
   document.getElementById('center-button').onclick = function() {
@@ -195,41 +210,76 @@ function loadMap() {
 **/
 function drawDataOnMap() {
   for(var state of Object.values(casesByState)) {
-    var centerLongitudeLatitude = ol.proj.fromLonLat([state.longitude, state.latitude]);
-    var radiusConfirmed = (5000 * state.confirmed) % 140000;
-    var radiusSuspected = (5000 * state.suspected) % 140000;
+    if(state.confirmed > 0) {
+        var centerLongitudeLatitude = ol.proj.fromLonLat([state.longitude, state.latitude]);
+        var radiusConfirmed = Math.min(25000 + (8000 * state.confirmed), 120000);
+        var layer = new ol.layer.Vector({
+          source: new ol.source.Vector({
+            projection: 'EPSG:4326',
+            features: [new ol.Feature(new ol.geom.Circle(centerLongitudeLatitude, radiusConfirmed))]
+          }),
+          style: [
+            new ol.style.Style({
+              fill: new ol.style.Fill({
+                color: '#FF4560AA'
+              })
+            })
+          ]
+        });
 
-    var layer1 = new ol.layer.Vector({
-      source: new ol.source.Vector({
-        projection: 'EPSG:4326',
-        features: [new ol.Feature(new ol.geom.Circle(centerLongitudeLatitude, radiusSuspected))]
-      }),
-      style: [
-        new ol.style.Style({
-          fill: new ol.style.Fill({
-            color: '#E06356BB'
-          })
-        })
-      ]
-    });
-
-    var layer2 = new ol.layer.Vector({
-      source: new ol.source.Vector({
-        projection: 'EPSG:4326',
-        features: [new ol.Feature(new ol.geom.Circle(centerLongitudeLatitude, radiusConfirmed))]
-      }),
-      style: [
-        new ol.style.Style({
-          fill: new ol.style.Fill({
-            color: '#FF4560AA'
-          })
-        })
-      ]
-    });
-
-    map.addLayer(layer1);
-    map.addLayer(layer2);
+        map.addLayer(layer);
+    }
   }
+}
+
+function drawClusters() {
+  var features = [];
+
+  for(var state of Object.values(casesByState)) {
+    for(var i = 0; i < state.confirmed; i++) {
+      var point = new ol.proj.fromLonLat([state.longitude, state.latitude]);
+      features.push(new ol.Feature(new ol.geom.Point(point)));
+    }
+  }
+
+  var source = new ol.source.Vector({
+    features: features
+  });
+
+  var clusterSource = new ol.source.Cluster({
+    distance: 1,
+    source: source
+  });
+
+  var styleCache = {};
+  var clusters = new ol.layer.Vector({
+    source: clusterSource,
+    style: function(feature) {
+      var size = feature.get('features').length;
+      var style = styleCache[size];
+      if (!style) {
+        style = new ol.style.Style({
+          image: new ol.style.Circle({
+            radius: 10,
+            fill: new ol.style.Fill({
+              color: 'transparent'
+            })
+          }),
+          text: new ol.style.Text({
+            text: size.toString(),
+            scale: 1.3,
+            fill: new ol.style.Fill({
+              color: '#fff'
+            })
+          })
+        });
+        styleCache[size] = style;
+      }
+      return style;
+    }
+  });
+
+  map.addLayer(clusters);
 }
 
 loadMap();
