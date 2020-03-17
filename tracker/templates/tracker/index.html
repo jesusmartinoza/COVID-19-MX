@@ -15,7 +15,7 @@
     <h1>Coronavirus(Covid-19) en México 🦠</h1>
 
     <div class="container">
-      <div class="col-group">
+      <div class="col-group mt-3">
         <div class="col-12 col-dt-8">
           <div class="card">
             <div class="card-title"><h3>Mapa por estado</h3></div>
@@ -60,31 +60,109 @@
 
   <!-- TODO: Fetch data with API and not like this >.<  -->
   <script type="text/javascript">
-  console.log({{total_confirmed}}, {{total_healed}})
-
-  var donutOptions = {
-        series: [{{total_confirmed}}, {{total_healed}}],
-        chart: {
-          type: "donut"
-        },
-        labels: ["Confirmados", "Recuperados"],
-        responsive: [
-          {
-            breakpoint: 480,
-            options: {
-              chart: {
-                width: 200
-              },
-              legend: {
-                position: "bottom"
-              }
+    /**
+     * Chart - TOTAL DEL PAIS
+     */
+    var donutOptions = {
+      series: [{{total_confirmed}}, {{total_suspected}}, {{total_healed}},],
+      theme: {
+        mode: 'dark'
+      },
+      chart: {
+        type: "donut",
+        background: '#00232A',
+        width: '100%',
+      },
+      colors: ['#FF4560', '#FFCD01', '#00E396'],
+      labels: ["Confirmados", "Sospechosos", "Recuperados"],
+      legend: {
+        fontSize: '16px',
+        position: 'bottom',
+        horizontalAlign: 'center',
+        floating: false,
+      },
+      responsive: [
+        {
+          breakpoint: 400,
+          options: {
+            legend: {
+              show: false
             }
           }
-        ]
-      };
+        }
+      ]
+    };
 
-  var chart2 = new ApexCharts(document.querySelector('#chart2'), donutOptions);
-  chart2.render();
+    var chart2 = new ApexCharts(document.querySelector('#chart2'), donutOptions);
+    chart2.render();
+
+    var t = JSON.parse("{{ states|escapejs }}");
+    console.log(t);
+
+    /**
+     * Chart - CASOS POR ESTADO
+     */
+    var options = {
+      theme: {
+        mode: 'dark',
+        palette: 'palette1'
+      },
+      series: [
+        {
+          name: "Confirmados",
+          data: [44, 1, 41, 37, 22, 43, 21]
+        },
+        {
+          name: "Sospechosos",
+          data: [53, 32, 33, 52, 13, 43, 32]
+        },
+      ],
+      chart: {
+        type: "bar",
+        background: '#00232A',
+        width: '100%',
+        height: 350,
+        stacked: true,
+        toolbar: {
+          show: false
+        }
+      },
+      plotOptions: {
+        bar: {
+          horizontal: true
+        }
+      },
+      stroke: {
+        width: 1,
+        colors: ["#fff"]
+      },
+      xaxis: {
+        categories: ['CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX', 'CMDX']
+      },
+      yaxis: {
+        title: {
+          text: undefined
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function(val) {
+            return val + "K";
+          }
+        }
+      },
+      fill: {
+        opacity: 1
+      },
+      legend: {
+        position: "top",
+        horizontalAlign: "left",
+        offsetX: 40
+      }
+    };
+
+    var chart = new ApexCharts(document.querySelector('#chart'), options);
+    chart.render();
   </script>
 
 </html>

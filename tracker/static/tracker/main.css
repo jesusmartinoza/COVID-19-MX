@@ -23,6 +23,7 @@ h1 {
   -webkit-box-shadow: 0px -9px 17px 7px rgba(0,0,0,0.11);
   -moz-box-shadow: 0px -9px 17px 7px rgba(0,0,0,0.11);
   margin: 1em 1em 1em 0;
+  min-height: 250px;
   overflow: hidden;
   padding: 0 !important;
 }
@@ -61,6 +62,9 @@ h1 {
 }
 .date-picker::placeholder {
   color: #7F9194;
+}
+.mt-3 { /** Margin-Top inspired by Bootstrap **/
+  margin-top: 3em !important;
 }
 
 #center-button {

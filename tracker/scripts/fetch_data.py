@@ -55,7 +55,7 @@ def parsePDF(filename):
     tables.export(f'tracker/files/{filename}.csv', f='csv', compress=False)
 
     # Merge generated CSV files into just one
-    all_filenames = [i for i in glob.glob(f'tracker/files/{filename}*.csv')]
+    all_filenames = [i for i in sorted(glob.glob(f'tracker/files/{filename}*.csv'))]
     combined_csv = pd.read_csv(all_filenames[0])
 
     for idx, f in enumerate(all_filenames):
@@ -85,16 +85,34 @@ def csvToDatabase(filename):
             state.save()
             pass
 
-        case = ConfirmedCase(id=row[0],
-                             state_id=state,
-                             sex=(1 if row[2] == 'M' else 2),
-                             age=row[3],
-                             symptoms_date= datetime.strptime(row[4], '%d/%m/%Y').date(),
-                             origin_country=row[6],
-                             healed=('*' in row[1]) # '*' indicates a healed case
-                            )
-        case.save()
+        if filename == 'suspected_cases':
+            case = SuspectedCase(id=row[0],
+                                 state_id=state,
+                                 sex=(1 if row[2] == 'M' else 2),
+                                 age=row[3],
+                                 symptoms_date= datetime.strptime(row[4], '%d/%m/%Y').date(),
+                                 origin_country=row[6],
+                                )
+            case.save()
+        else:
+            case = ConfirmedCase(id=row[0],
+                                 state_id=state,
+                                 sex=(1 if row[2] == 'M' else 2),
+                                 age=row[3],
+                                 symptoms_date= datetime.strptime(row[4], '%d/%m/%Y').date(),
+                                 origin_country=row[6],
+                                 healed=('*' in row[1]) # '*' indicates a healed case
+                                )
+            case.save()
 
 def run():
+    downloadPDF(url='https://www.gob.mx/cms/uploads/attachment/file/541539/Tabla_casos_positivos_resultado_InDRE_2020.03.15.pdf',
+                filename='confirmed_cases')
     parsePDF('confirmed_cases')
     csvToDatabase('confirmed_cases')
+
+    downloadPDF(url='https://www.gob.mx/cms/uploads/attachment/file/541540/Tabla_casos_sospechosos_COVID-19_2020.03.15.pdf',
+                filename='suspected_cases')
+    parsePDF('suspected_cases')
+    csvToDatabase('suspected_cases')
+
