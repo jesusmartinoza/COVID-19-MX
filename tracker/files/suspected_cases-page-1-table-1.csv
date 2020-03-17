@@ -1,9 +1,12 @@
-"N° Caso","Estado","Sexo","Edad","Fecha de Inicio de 
-síntomas","Identificación de 
-COVID-19 por RT-
-PCR/Secuencia de 
-DNA*","Procedencia","Fecha del 
-llegada a México"
+"N° 
+Caso","Estado","Sexo","Edad","Fecha de Inicio 
+de síntomas","Identificación 
+de COVID-19 
+por RT-
+PCR/Secuencia 
+de DNA*","Procedencia","Fecha del 
+llegada a 
+México"
 "1","CIUDAD DE MÉXICO","F","2","29/02/2020","Sospechoso","Contacto","NA"
 "2","CIUDAD DE MÉXICO","M","32","16/02/2020","Sospechoso","Contacto","NA"
 "3","MÉXICO","F","20","26/02/2020","Sospechoso","Italia","24/02/2020"
@@ -39,17 +42,17 @@ llegada a México"
 "33","CIUDAD DE MÉXICO","F","35","09/03/2020","Sospechoso","Alemania","11/03/2020"
 "34","CIUDAD DE MÉXICO","F","23","09/03/2020","Sospechoso","España","07/03/2020"
 "35","YUCATÁN","M","38","08/03/2020","Sospechoso","España","04/03/2020"
-"36","QUERETARO","M","44","06/03/2020","Sospechoso","Alemania","12/03/2020"
-"37","BAJA CALIFORNIA","M","75","11/03/2020","Sospechoso","Estados Unidos","10/03/2020"
-"38","BAJA CALIFORNIA","M","34","29/02/2020","Sospechoso","Francia","01/03/2020"
-"39","QUERETARO","F","33","10/03/2020","Sospechoso","Estados Unidos","06/03/2020"
-"40","QUERETARO","M","31","10/03/2020","Sospechoso","Estados Unidos","06/03/2020"
-"41","BAJA CALIFORNIA","M","60","08/03/2020","Sospechoso","Estados Unidos","06/03/2020"
-"42","CIUDAD DE MÉXICO","M","30","29/02/2020","Sospechoso","España","05/03/2020"
-"43","BAJA CALIFORNIA","M","24","11/03/2020","Sospechoso","Estados Unidos","09/03/2020"
-"44","CIUDAD DE MÉXICO","M","27","11/03/2020","Sospechoso","Francia","02/03/2020"
-"45","CIUDAD DE MÉXICO","M","59","19/02/2020","Sospechoso","Italia","28/02/2020"
-"46","CHIAPAS","F","34","07/03/2020","Sospechoso","Francia","03/03/2020"
-"47","CIUDAD DE MÉXICO","F","37","03/03/2020","Sospechoso","Estados Unidos","01/03/2020"
-"48","CIUDAD DE MÉXICO","F","53","06/03/2020","Sospechoso","España","09/03/2020"
-"49","CIUDAD DE MÉXICO","M","26","10/03/2020","Sospechoso","Contacto","NA"
+"36","BAJA CALIFORNIA","M","75","11/03/2020","Sospechoso","Estados Unidos","10/03/2020"
+"37","BAJA CALIFORNIA","M","34","29/02/2020","Sospechoso","Francia","01/03/2020"
+"38","QUERETARO","F","33","10/03/2020","Sospechoso","Estados Unidos","06/03/2020"
+"39","QUERETARO","M","31","10/03/2020","Sospechoso","Estados Unidos","06/03/2020"
+"40","BAJA CALIFORNIA","M","60","08/03/2020","Sospechoso","Estados Unidos","06/03/2020"
+"41","CIUDAD DE MÉXICO","M","30","29/02/2020","Sospechoso","España","05/03/2020"
+"42","CIUDAD DE MÉXICO","M","27","11/03/2020","Sospechoso","Francia","02/03/2020"
+"43","CIUDAD DE MÉXICO","M","59","19/02/2020","Sospechoso","Italia","28/02/2020"
+"44","CIUDAD DE MÉXICO","F","37","03/03/2020","Sospechoso","Estados Unidos","01/03/2020"
+"45","CIUDAD DE MÉXICO","F","53","06/03/2020","Sospechoso","España","09/03/2020"
+"46","CIUDAD DE MÉXICO","M","26","10/03/2020","Sospechoso","Contacto","NA"
+"47","CIUDAD DE MÉXICO","M","22","12/03/2020","Sospechoso","Contacto","13/03/2020"
+"48","QUERETARO","F","72","13/03/2020","Sospechoso","Contacto","NA"
+"49","CIUDAD DE MÉXICO","F","57","10/03/2020","Sospechoso","Contacto","NA"

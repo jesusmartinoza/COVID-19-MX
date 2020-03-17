@@ -1,3 +1,5 @@
+beautifulsoup4==4.8.2
+bs4==0.0.1
 camelot-py==0.7.3
 Django==3.0.4
 django-appconf==1.0.3

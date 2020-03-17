@@ -10,6 +10,7 @@ from tracker.models import State
 from tracker.models import ConfirmedCase
 from tracker.models import SuspectedCase
 from datetime import datetime
+from bs4 import BeautifulSoup
 
 def downloadPDF(url, filename):
     """
@@ -20,10 +21,17 @@ def downloadPDF(url, filename):
         filename -- Name of the file to store in disk without .pdf extension
     """
     url = url
-    r = requests.get(url, stream=True)
+    r = requests.get(url, stream=True, allow_redirects=False)
+    success = r.status_code == requests.codes.ok
 
-    with open(f'tracker/files/{filename}.pdf', 'wb') as f:
-        f.write(r.content)
+    if success:
+        with open(f'tracker/files/{filename}.pdf', 'wb') as f:
+            f.write(r.content)
+    else:
+        warnings.warn(f"********", FutureWarning)
+        warnings.warn(f'{url} file not found', FutureWarning)
+
+    return success
 
 def getPagesNumber(filename):
     """
@@ -72,8 +80,8 @@ def parsePDF(filename):
 def csvToDatabase(filename):
     """
     Read CSV file and store values in Sqlite Database
-        Arguments:
-            filename -- PDF to read without .pdf extension
+    Arguments:
+        filename -- PDF to read without .pdf extension
     """
     df = pd.read_csv(f'tracker/files/final_{filename}.csv')
     api_keys = {}
@@ -103,7 +111,7 @@ def csvToDatabase(filename):
                 state = State(name=state_name, latitude=geo_result['lat'], longitude=geo_result['lng'])
                 state.save()
             else:
-                state = State(name=state_name, latitude=0, longitude=0])
+                state = State(name=state_name, latitude=0, longitude=0)
                 state.save()
             pass
 
@@ -127,13 +135,37 @@ def csvToDatabase(filename):
                                 )
             case.save()
 
+def getPDFLinks():
+    """
+    Scrap https://www.gob.mx/ website to get last links of the thecnical documents.
+
+    Return:
+        Dictionary with PDF links of confirmed and positives cases
+    """
+    url = 'https://www.gob.mx/salud/documentos/nuevo-coronavirus-2019-ncov-comunicado-tecnico-diario?idiom=es'
+    page = requests.get(url)
+    soup = BeautifulSoup(page.content, 'html.parser')
+    links = {}
+
+    html_table = soup.find('div', class_='table-responsive')
+
+    for a in html_table.find_all('a'):
+        if 'positivos' in a['href']:
+            links['confirmed_cases'] = 'https://www.gob.mx/' + a['href']
+        elif 'sospechosos' in a['href']:
+            links['suspected_cases'] = 'https://www.gob.mx/' + a['href']
+
+    return links
+
 def run():
-    downloadPDF(url='https://www.gob.mx/cms/uploads/attachment/file/541539/Tabla_casos_positivos_resultado_InDRE_2020.03.15.pdf',
+    pdf_links = getPDFLinks()
+
+    downloadPDF(url=pdf_links['confirmed_cases'],
                 filename='confirmed_cases')
     parsePDF('confirmed_cases')
     csvToDatabase('confirmed_cases')
 
-    downloadPDF(url='https://www.gob.mx/cms/uploads/attachment/file/541540/Tabla_casos_sospechosos_COVID-19_2020.03.15.pdf',
+    downloadPDF(url=pdf_links['suspected_cases'],
                 filename='suspected_cases')
     parsePDF('suspected_cases')
     csvToDatabase('suspected_cases')
