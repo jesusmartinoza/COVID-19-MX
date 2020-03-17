@@ -29,4 +29,4 @@ def parsePDF():
 
     # Parse PDF into several CSV files
     tables = camelot.read_pdf(file_path, pages=f'1-{file_reader.numPages}')
-    tables.export('tracker/files/test.csv', f='csv', compress=False, )
+    tables.export('tracker/files/confirmed.csv', f='csv', compress=False, )

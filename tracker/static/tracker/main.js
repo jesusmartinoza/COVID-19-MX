@@ -97,21 +97,7 @@ chart2.render();
 var chart3 = new ApexCharts(document.querySelector('#chart3'), donutOptions);
 chart3.render();
 
-
-var datePicker;
 var map;
-
-function loadDatePicker() {
-  flatpickr.localize(flatpickr.l10ns.es);
-  datePicker = flatpickr(".date-picker", {
-     altInput: true,
-     altFormat: "l j \\de F, Y",
-     dateFormat: "Y-m-d",
-     defaultDate: "today",
-     minDate: new Date(2020, 1, 20),
-     maxDate: "today",
-   });
-}
 
 function addGeoJsonLayer(file, color) {
   var geojsonSource = new ol.source.Vector({
@@ -171,5 +157,4 @@ document.getElementById('center-button').onclick = function() {
   });
 }
 
-loadDatePicker();
 loadMap();
