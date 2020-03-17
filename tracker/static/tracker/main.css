@@ -28,6 +28,7 @@ h1 {
 }
 .card-content {
   padding: 1em;
+  position: relative;
 }
 .card-title {
   background-color: #05272E;
@@ -62,8 +63,25 @@ h1 {
   color: #7F9194;
 }
 
+#center-button {
+  border-radius: 50%;
+  background-color: #305D93;
+  bottom: 1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  left: 1em;
+  height: 40px;
+  position: absolute;
+  width: 40px;
+  z-index: 9999;
+}
+#center-button img {
+  margin: 0 auto;
+  width: 24px;
+}
 #map {
   height: 70vh;
-  margin: 1em;
-  width: 95%;
+  margin: -1em;
+  width: 105%;
 }
