@@ -35,7 +35,6 @@ fetch(window.location.href + 'api')
 
     // Load charts and map
     loadStatesChart();
-    drawDataOnMap();
     drawClusters();
   });
 
@@ -79,9 +78,6 @@ function loadStatesChart() {
     },
     xaxis: {
       categories: Object.keys(casesByState)
-    },
-    fill: {
-      opacity: 1
     },
     legend: {
       position: "bottom",
@@ -132,6 +128,9 @@ function loadDonutChart(data) {
   chart2.render();
 }
 
+/**
+ * Draw countries and boundaries using GeoJSON
+ */
 function addGeoJsonLayer(file, color, selectable = false) {
   var geojsonSource = new ol.source.Vector({
     url: file,
@@ -156,6 +155,9 @@ function addGeoJsonLayer(file, color, selectable = false) {
   map.addLayer(geojsonLayer);
 }
 
+/**
+ * Load OpenLayers map instance
+ */
 function loadMap() {
   map = new ol.Map({
     target: 'map',
@@ -166,6 +168,7 @@ function loadMap() {
       zoom: 4.8,
     }),
     interactions: ol.interaction.defaults({
+        // TODO: Set this to true only when is mobile
         // dragAndDrop: false,
         // keyboardPan: false,
         // keyboardZoom: false,
@@ -179,22 +182,6 @@ function loadMap() {
   addGeoJsonLayer('/static/tracker/america.geojson', '#26444A');
   addGeoJsonLayer('/static/tracker/mexstates.geojson', '#366E8C');
 
-  var selectEuropa = new ol.style.Style({
-      stroke: new ol.style.Stroke({
-        color: "white",
-        width: 1
-    })
-  });
-  var selectPointerMove = new ol.interaction.Select({
-    condition: ol.events.condition.pointerMove,
-    multi: true,
-    layers: function(layer) {
-      return layer.get('selectable') == true;
-    },
-    //style: [selectEuropa]
-  });
-  //map.addInteraction(selectPointerMove);
-
   // Button listener to center map
   document.getElementById('center-button').onclick = function() {
     map.getView().animate({
@@ -206,32 +193,8 @@ function loadMap() {
 }
 
 /**
-* Draw a circle in each state proportional to number of people infected
+* Draw a circle in each zone proportional to number of people infected
 **/
-function drawDataOnMap() {
-  for(var state of Object.values(casesByState)) {
-    if(state.confirmed > 0) {
-        var centerLongitudeLatitude = ol.proj.fromLonLat([state.longitude, state.latitude]);
-        var radiusConfirmed = Math.min(25000 + (8000 * state.confirmed), 120000);
-        var layer = new ol.layer.Vector({
-          source: new ol.source.Vector({
-            projection: 'EPSG:4326',
-            features: [new ol.Feature(new ol.geom.Circle(centerLongitudeLatitude, radiusConfirmed))]
-          }),
-          style: [
-            new ol.style.Style({
-              fill: new ol.style.Fill({
-                color: '#FF4560AA'
-              })
-            })
-          ]
-        });
-
-        map.addLayer(layer);
-    }
-  }
-}
-
 function drawClusters() {
   var features = [];
 
@@ -247,7 +210,7 @@ function drawClusters() {
   });
 
   var clusterSource = new ol.source.Cluster({
-    distance: 1,
+    distance: 20,
     source: source
   });
 
@@ -260,9 +223,9 @@ function drawClusters() {
       if (!style) {
         style = new ol.style.Style({
           image: new ol.style.Circle({
-            radius: 10,
+            radius: Math.min(8 + size, 30),
             fill: new ol.style.Fill({
-              color: 'transparent'
+              color: '#FF4560AA'
             })
           }),
           text: new ol.style.Text({
