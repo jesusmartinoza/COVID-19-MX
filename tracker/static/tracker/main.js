@@ -83,19 +83,7 @@ function loadStatesChart() {
       position: "bottom",
       horizontalAlign: "left",
       offsetX: 40
-    },
-    responsive: [
-      {
-        breakpoint: 720,
-        options: {
-          plotOptions: {
-            bar: {
-              horizontal: false
-            }
-          },
-        }
-      }
-    ]
+    }
   };
 
   var chart = new ApexCharts(document.querySelector('#chart'), options);
