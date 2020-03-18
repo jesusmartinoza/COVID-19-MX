@@ -8,4 +8,5 @@ django-extensions==2.2.3
 pandas==1.0.1
 pdfminer.six==20200124
 PyPDF2==1.26.0
+requests==2.22.0
 six==1.14.0

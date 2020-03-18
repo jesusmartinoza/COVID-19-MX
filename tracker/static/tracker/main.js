@@ -83,7 +83,15 @@ function loadStatesChart() {
       position: "bottom",
       horizontalAlign: "left",
       offsetX: 40
-    }
+    },
+    responsive: [{
+      breakpoint: 540,
+      options: {
+        chart: {
+          height: 700
+        }
+      }
+    }],
   };
 
   var chart = new ApexCharts(document.querySelector('#chart'), options);
@@ -163,19 +171,10 @@ function loadMap() {
     target: 'map',
     view: new ol.View({
       center: ol.proj.fromLonLat([-102.341600, 23.568975]),
-      //enableRotation: false,
+      enableRotation: false,
       minZoom: 3.5,
       zoom: 4.8,
-    }),
-    interactions: ol.interaction.defaults({
-        // TODO: Set this to true only when is mobile
-        // dragAndDrop: false,
-        // keyboardPan: false,
-        // keyboardZoom: false,
-        // mouseWheelZoom: false,
-        // select: false,
-        // onFocusOnly: true
-    }),
+    })
   });
 
   // Add boundaries layer
