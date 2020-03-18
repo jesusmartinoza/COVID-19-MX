@@ -101,19 +101,13 @@ def csvToDatabase(filename):
         try:
             state = State.objects.filter(name=state_name)[0]
         except:
-            # Get coordinates from OpenCageData only if API_KEY is available
-            if not api_keys:
-                api_key = api_keys['opencagedata']
-                url = f'https://api.opencagedata.com/geocode/v1/json?q={state_name},MX&key={api_key}&no_annotations=1'
-                r = requests.get(url)
-                geo_result = r.json()
-                geo_result = geo_result['results'][0]['geometry']
-                state = State(name=state_name, latitude=geo_result['lat'], longitude=geo_result['lng'])
-                state.save()
-            else:
-                state = State(name=state_name, latitude=0, longitude=0)
-                state.save()
-            pass
+            api_key = api_keys['opencagedata']
+            url = f'https://api.opencagedata.com/geocode/v1/json?q={state_name},MX&key={api_key}&no_annotations=1'
+            r = requests.get(url)
+            geo_result = r.json()
+            geo_result = geo_result['results'][0]['geometry']
+            state = State(name=state_name, latitude=geo_result['lat'], longitude=geo_result['lng'])
+            state.save()
 
         if filename == 'suspected_cases':
             case = SuspectedCase(id=row[0],
