@@ -1,10 +1,16 @@
 var map;
 var casesByState = {}
 
+// Remove extra params
+var url = window.location.href;
+var to = url.lastIndexOf('/');
+to = to == -1 ? url.length : to + 1;
+url = url.substring(0, to);
+
 /**
  * Get data from backend
  */
-fetch(window.location.href + 'api')
+fetch(url + 'api')
   .then(function(response) {
     return response.json();
   })
