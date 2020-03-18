@@ -106,6 +106,7 @@ def csvToDatabase(filename):
             r = requests.get(url)
             geo_result = r.json()
             geo_result = geo_result['results'][0]['geometry']
+            print(geo_result)
             state = State(name=state_name, latitude=geo_result['lat'], longitude=geo_result['lng'])
             state.save()
 
