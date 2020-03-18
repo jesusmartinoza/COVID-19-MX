@@ -1,8 +1,10 @@
-"N° Caso","Estado","Sexo","Edad","Fecha de Inicio 
-de síntomas","Identificación de 
-COVID-19 por RT-
-PCR/Secuencia de 
-DNA*","Procedencia","Fecha del 
+"N° Caso","Estado","Sexo","Edad","Fecha de 
+Inicio de 
+síntomas","Identificación 
+de COVID-19 
+por RT-
+PCR/Secuencia 
+de DNA*","Procedencia","Fecha del 
 llegada a 
 México"
 "1","CIUDAD DE MÉXICO","M","35","22/02/2020","confirmado","Italia","22/02/2020"

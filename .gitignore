@@ -1,1 +1,4 @@
 tracker/api_keys.json
+tracker/scripts/__pycache__
+tracker/migrations/__pycache__
+tracker/__pycache__

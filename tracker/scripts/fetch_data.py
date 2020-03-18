@@ -62,7 +62,7 @@ def parsePDF(filename):
     file_path = f'tracker/files/{filename}.pdf'
 
     # Convert PDF to CSV
-    tables = camelot.read_pdf(file_path, pages=f'1-{n_pages}')
+    tables = camelot.read_pdf(file_path, pages=f'1-{n_pages}', split_text=True)
     tables.export(f'tracker/files/{filename}.csv', f='csv', compress=False)
 
     # Merge generated CSV files into just one
