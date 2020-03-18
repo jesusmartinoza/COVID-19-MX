@@ -1,5 +1,5 @@
 var map;
-var casesByState = {}
+var casesByState = {};
 
 // Remove extra params
 var url = window.location.href;
