@@ -7,6 +7,7 @@ from .models import SuspectedCase
 from django.views.decorators.csrf import csrf_protect
 import json
 
+
 def index(request):
     context = {
         'total_confirmed': ConfirmedCase.objects.filter(healed=False).count(),
@@ -16,6 +17,7 @@ def index(request):
 
     return render(request, 'tracker/index.html', context)
 
+
 @csrf_protect
 def api(request):
     # INNER JOIN:
@@ -23,6 +25,9 @@ def api(request):
     # 'INNER JOIN tracker_State'\
     # 'ON tracker_State.id = tracker_ConfirmedCase.state_id'
     cases = []
+    confirmed_by_age = {}
+    healed_by_age = {}
+    suspected_by_age = {}
 
     for c in ConfirmedCase.objects.select_related('state_id'):
         cases.append({
@@ -47,11 +52,26 @@ def api(request):
             'status': 'suspected'
         })
 
+    age_step = 5
+    for i in range(0, 120, age_step):
+        confirmed_by_age[f'{i} - {i + age_step}'] = ConfirmedCase.objects.filter(
+            healed=False, age__gte=i, age__lt=i+age_step).count()
+
+        healed_by_age[f'{i} - {i + age_step}'] = ConfirmedCase.objects.filter(
+            healed=True, age__gte=i, age__lt=i+age_step).count()
+
+        suspected_by_age[f'{i} - {i + age_step}'] = SuspectedCase.objects.filter(
+            age__gte=i, age__lt=i+age_step).count()
+
     context = {
         'total_confirmed': ConfirmedCase.objects.filter(healed=False).count(),
         'total_healed': ConfirmedCase.objects.filter(healed=True).count(),
         'total_suspected': SuspectedCase.objects.all().count(),
-        'cases': sorted(cases, key=lambda c:c['state_name']),
+        'cases': sorted(cases, key=lambda c: c['state_name']),
+        'confirmed_by_age': confirmed_by_age,
+        'healed_by_age': healed_by_age,
+        'suspected_by_age': suspected_by_age
+
     }
 
     return JsonResponse(context, safe=False)

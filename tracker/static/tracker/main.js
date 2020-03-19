@@ -1,5 +1,6 @@
 var map;
 var casesByState = {};
+var casesByAge ={};
 
 // Remove extra params
 var url = window.location.href;
@@ -39,8 +40,14 @@ fetch(url + 'api')
       }
     }
 
+    // Fill casesByAge object
+    casesByAge.confirmed = json.confirmed_by_age;
+    casesByAge.healed = json.healed_by_age
+    casesByAge.suspected = json.suspected_by_age
+
     // Load charts and map
     loadStatesChart();
+    loadAgesChart();
     drawClusters();
   });
 
@@ -248,6 +255,71 @@ function drawClusters() {
   });
 
   map.addLayer(clusters);
+}
+
+function loadAgesChart() {
+  console.log(casesByAge);
+
+  var options = {
+    theme: {
+      mode: 'dark',
+      palette: 'palette1'
+    },
+    colors: ['#FF4560', '#FFCD01', '#00E396'],
+    series: [
+      {
+        name: 'Confirmados',
+        data: Object.values(casesByAge.confirmed)
+      },
+      {
+        name: 'Sospechosos',
+        data: Object.values(casesByAge.suspected)
+      },
+      {
+        name: 'Recuperados',
+        data: Object.values(casesByAge.healed)
+      }
+    ],
+    chart: {
+      background: '#00232A',
+      type: 'bar',
+      height: 350,
+      toolbar: {
+        show: false
+      }
+    },
+    plotOptions: {
+      bar: {
+        horizontal: false,
+        columnWidth: '55%'
+      }
+    },
+    dataLabels: {
+      enabled: false
+    },
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ['transparent']
+    },
+    xaxis: {
+      categories: Object.keys(casesByAge.confirmed),
+      title: {
+        text: 'Rango de edad (años)'
+      }
+    },
+    legend: {
+      position: 'bottom',
+      horizontalAlign: 'left',
+      offsetX: 40
+    },
+    fill: {
+      opacity: 1
+    }
+  };
+
+  var chart = new ApexCharts(document.querySelector('#by-age-chart'), options);
+  chart.render();
 }
 
 loadMap();
