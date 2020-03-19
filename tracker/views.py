@@ -53,7 +53,7 @@ def api(request):
         })
 
     age_step = 5
-    for i in range(0, 120, age_step):
+    for i in range(0, 90, age_step):
         confirmed_by_age[f'{i} - {i + age_step}'] = ConfirmedCase.objects.filter(
             healed=False, age__gte=i, age__lt=i+age_step).count()
 
