@@ -23,6 +23,8 @@ def api(request):
     # 'INNER JOIN tracker_State'\
     # 'ON tracker_State.id = tracker_ConfirmedCase.state_id'
     cases = []
+    cases_by_age = []
+    healed_by_age =[]
 
     for c in ConfirmedCase.objects.select_related('state_id'):
         cases.append({
@@ -47,11 +49,23 @@ def api(request):
             'status': 'suspected'
         })
 
+    age_step = 5
+    for i in range(0,120,age_step):
+        cases_by_age.append({f'{i} - {i + age_step}':ConfirmedCase.objects.filter(healed = False, age__gte=i, age__lt=i+age_step).count()})
+    print(cases_by_age)
+
+    for i in range(0,120,age_step):
+        healed_by_age.append({f'{i} - {i + age_step}':ConfirmedCase.objects.filter(healed = True, age__gte=i, age__lt=i+age_step).count()})
+    print(healed_by_age)
+
     context = {
         'total_confirmed': ConfirmedCase.objects.filter(healed=False).count(),
         'total_healed': ConfirmedCase.objects.filter(healed=True).count(),
         'total_suspected': SuspectedCase.objects.all().count(),
         'cases': sorted(cases, key=lambda c:c['state_name']),
+        'cases_by_age': cases_by_age,
+        'healed_by_age': healed_by_age
+
     }
 
     return JsonResponse(context, safe=False)
