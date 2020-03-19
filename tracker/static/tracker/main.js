@@ -1,6 +1,7 @@
 var map;
 var casesByState = {};
 var casesByAge ={};
+var casesByDate = {}
 
 // Remove extra params
 var url = window.location.href;
@@ -45,10 +46,15 @@ fetch(url + 'api')
     casesByAge.healed = json.healed_by_age
     casesByAge.suspected = json.suspected_by_age
 
+    // Fill casesByDate array
+    casesByDate = json.cases_by_date
+
     // Load charts and map
-    loadStatesChart();
-    loadAgesChart();
-    drawClusters();
+    loadStatesChart()
+    loadAgesChart()
+    drawClusters()
+    loadTrendsChart()
+
   });
 
 /**
@@ -320,6 +326,78 @@ function loadAgesChart() {
 
   var chart = new ApexCharts(document.querySelector('#by-age-chart'), options);
   chart.render();
+}
+
+/**
+ * Chart - CASOS POR DIA
+ */
+function loadTrendsChart () {
+  var options = {
+    theme: {
+      mode: 'dark',
+      palette: 'pallete1'
+    },
+    colors: ['#FF4560', '#FFCD01', '#00E396'],
+    series: [
+      {
+        name: 'Confirmados',
+        data: casesByDate.map(el => el.cases_confirmed)
+      },
+      {
+        name: 'Sospechosos',
+        data: casesByDate.map(el => el.cases_suspected)
+      },
+      {
+        name: 'Recuperados',
+        data: casesByDate.map(el => el.cases_healed)
+      }
+    ],
+    chart: {
+      height: 350,
+      background: '#00232A',
+      type: 'line',
+      zoom: {
+        enabled: false
+      }
+    },
+    stroke: {
+      show: true,
+      width: 2,
+      colors: ['transparent']
+    },
+    dataLabels: {
+      enabled: true
+    },
+    grid: {
+      row: {
+        opacity: 0.5
+      }
+    },
+    legend: {
+      position: 'bottom',
+      horizontalAlign: 'left',
+      offsetX: 40
+    },
+    fill: {
+      opacity: 1
+    },
+    xaxis: {
+      categories: casesByDate.map(el =>
+        new Date(el.date).toLocaleDateString('es-MX', {
+          weekday: 'short',
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric'
+        })
+      ),
+      title: {
+        text: 'Fechas (19/Feb/2020 - Hoy)'
+      }
+    }
+  }
+
+  var chart = new ApexCharts(document.querySelector('#by-day-chart'), options)
+  chart.render()
 }
 
 loadMap();
