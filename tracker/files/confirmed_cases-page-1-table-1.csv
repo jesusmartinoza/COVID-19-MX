@@ -1,11 +1,7 @@
-"N° Caso","Estado","Sexo","Edad","Fecha de 
-Inicio de 
-síntomas","Identificación 
-de COVID-19 
-por RT-
-PCR/Secuencia 
-de DNA*","Procedencia","Fecha del 
-llegada a 
+"N° Caso","Estado","Sexo","Edad","Fecha de Inicio de 
+síntomas","Identificación de 
+COVID-19 por RT-PCR 
+en tiempo real","Procedencia","Fecha del llegada a 
 México"
 "1","CIUDAD DE MÉXICO","M","35","22/02/2020","confirmado","Italia","22/02/2020"
 "2","SINALOA","M","41","22/02/2020","confirmado","Italia","21/02/2020"
@@ -30,7 +26,7 @@ México"
 "21","CIUDAD DE MÉXICO","M","37","11/03/2020","confirmado","Italia","11/03/2020"
 "22","YUCATÁN","F","57","07/03/2020","confirmado","España","06/03/2020"
 "23","CIUDAD DE MÉXICO","M","52","08/03/2020","confirmado","España","08/03/2020"
-"24","CIUDAD DE MÉXICO","M","64","10/03/2020","confirmado","Contacto","10/03/2020"
+"24","CIUDAD DE MÉXICO","M","64","10/03/2020","confirmado","Contacto, Cuba","10/03/2020"
 "25","CIUDAD DE MÉXICO","M","68","04/03/2020","confirmado","España","10/03/2020"
 "26","QUINTANA ROO","F","71","01/03/2020","confirmado","Italia","01/03/2020"
 "27","SAN LUIS POTOSÍ","F","53","11/03/2020","confirmado","España","10/03/2020"
@@ -52,4 +48,3 @@ México"
 "43","SAN LUIS POTOSÍ","F","23","07/03/2020","confirmado","España","10/03/2020"
 "44","QUERETARO","F","54","10/03/2020","confirmado","España","10/03/2020"
 "45","OAXACA","M","61","10/03/2020","confirmado","Estados Unidos","10/03/2020"
-"46","QUERETARO","F","55","10/03/2020","confirmado","España","10/03/2020"

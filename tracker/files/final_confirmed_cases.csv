@@ -1,11 +1,7 @@
-﻿N° Caso,Estado,Sexo,Edad,"Fecha de 
-Inicio de 
-síntomas","Identificación 
-de COVID-19 
-por RT-
-PCR/Secuencia 
-de DNA*",Procedencia,"Fecha del 
-llegada a 
+﻿N° Caso,Estado,Sexo,Edad,"Fecha de Inicio de 
+síntomas","Identificación de 
+COVID-19 por RT-PCR 
+en tiempo real",Procedencia,"Fecha del llegada a 
 México"
 1,CIUDAD DE MÉXICO,M,35,22/02/2020,confirmado,Italia,22/02/2020
 2,SINALOA,M,41,22/02/2020,confirmado,Italia,21/02/2020
@@ -30,7 +26,7 @@ México"
 21,CIUDAD DE MÉXICO,M,37,11/03/2020,confirmado,Italia,11/03/2020
 22,YUCATÁN,F,57,07/03/2020,confirmado,España,06/03/2020
 23,CIUDAD DE MÉXICO,M,52,08/03/2020,confirmado,España,08/03/2020
-24,CIUDAD DE MÉXICO,M,64,10/03/2020,confirmado,Contacto,10/03/2020
+24,CIUDAD DE MÉXICO,M,64,10/03/2020,confirmado,"Contacto, Cuba",10/03/2020
 25,CIUDAD DE MÉXICO,M,68,04/03/2020,confirmado,España,10/03/2020
 26,QUINTANA ROO,F,71,01/03/2020,confirmado,Italia,01/03/2020
 27,SAN LUIS POTOSÍ,F,53,11/03/2020,confirmado,España,10/03/2020
@@ -98,5 +94,30 @@ México"
 89,JALISCO,F,56,11/03/2020,confirmado,Contacto,
 90,YUCATÁN,M,37,09/03/2020,confirmado,Estados Unidos,06/03/2020
 91,NUEVO LEÓN,M,19,07/03/2020,confirmado,Contacto,10/03/2020
-92,MÉXICO,M,56,07/03/2020,confirmado,Estados Unidos,05/03/2020
-93,PUEBLA,M,25,10/03/2020,confirmado,España,09/03/2020
+92,NUEVO LEÓN,M,34,12/03/2020,confirmado,Estados Unidos,07/03/2020
+93,NUEVO LEÓN,M,41,10/03/2020,confirmado,Estados Unidos,07/03/2020
+94,NUEVO LEÓN,M,46,11/03/2020,confirmado,Estados Unidos,09/03/2020
+95,NUEVO LEÓN,M,21,14/03/2020,confirmado,España,15/03/2020
+96,NUEVO LEÓN,M,21,15/03/2020,confirmado,España,13/03/2020
+97,YUCATÁN,F,21,13/03/2020,confirmado,España,13/03/2020
+98,YUCATÁN,M,25,11/03/2020,confirmado,España,15/03/2020
+99,JALISCO,F,36,10/03/2020,confirmado,Contacto,
+100,CIUDAD DE MÉXICO,M,53,09/03/2020,confirmado,España,09/03/2020
+101,CIUDAD DE MÉXICO,F,53,06/03/2020,confirmado,España,09/03/2020
+102,MÉXICO,M,56,07/03/2020,confirmado,Estados Unidos,05/03/2020
+103,VERACRUZ,F,21,03/03/2020,confirmado,España,12/03/2020
+104,VERACRUZ,M,24,14/03/2020,confirmado,España,14/03/2020
+105,SAN LUIS POTOSÍ,M,32,14/03/2020,confirmado,España,14/03/2020
+106,PUEBLA,M,25,10/03/2020,confirmado,España,09/03/2020
+107,YUCATÁN,F,26,08/03/2020,confirmado,España,14/03/2020
+108,COLIMA,M,46,15/03/2020,confirmado,Alemania,13/03/2020
+109,BAJA CALIFORNIA,F,54,11/03/2020,confirmado,Estados Unidos,02/03/2020
+110,BAJA CALIFORNIA,F,57,13/03/2020,confirmado,Contacto,16/03/2020
+111,TABASCO,F,61,14/03/2020,confirmado,Francia,16/03/2020
+112,CIUDAD DE MÉXICO,M,28,16/03/2020,confirmado,Contacto,
+113,GUANAJUATO,F,18,10/03/2020,confirmado,Estados Unidos,13/03/2020
+114,TAMAULIPAS,F,23,16/03/2020,confirmado,España,12/03/2020
+115,QUINTANA ROO,M,17,09/03/2020,confirmado,Estados Unidos,09/03/2020
+116,QUINTANA ROO,M,39,16/03/2020,confirmado,Italia,01/03/2020
+117,GUANAJUATO,F,27,14/03/2020,confirmado,España,14/03/2020
+118,GUANAJUATO,F,52,12/03/2020,confirmado,España,14/03/2020
