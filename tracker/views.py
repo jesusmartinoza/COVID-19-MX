@@ -5,6 +5,8 @@ from django.db.models import Count
 from .models import ConfirmedCase
 from .models import SuspectedCase
 from django.views.decorators.csrf import csrf_protect
+from dateutil.rrule import rrule, DAILY
+import datetime
 import json
 
 
@@ -61,8 +63,21 @@ def api(request):
             healed=True, age__gte=i, age__lt=i+age_step).count()
 
         suspected_by_age[f'{i} - {i + age_step}'] = SuspectedCase.objects.filter(
-            age__gte=i, age__lt=i+age_step).count()
-
+            age__gte=i, age__lt=i + age_step).count()
+    
+    # https://github.com/jesusmartinoza/COVID-19-MX/issues/4
+    cases_by_date = list()
+    for dt in rrule(DAILY, dtstart=datetime.date(2020, 2, 19), until=datetime.datetime.now()):
+        cc_trends = ConfirmedCase.objects.filter(symptoms_date=dt).count()
+        hc_trends = ConfirmedCase.objects.filter(symptoms_date=dt, healed=True).count(),
+        sc_trends = SuspectedCase.objects.filter(symptoms_date=dt).count()
+        cases_by_date.append({
+            'date': dt,
+            'cases_confirmed': cc_trends,
+            'cases_healed': hc_trends, 
+            'cases_suspected': sc_trends
+        })
+        
     context = {
         'total_confirmed': ConfirmedCase.objects.filter(healed=False).count(),
         'total_healed': ConfirmedCase.objects.filter(healed=True).count(),
@@ -70,8 +85,8 @@ def api(request):
         'cases': sorted(cases, key=lambda c: c['state_name']),
         'confirmed_by_age': confirmed_by_age,
         'healed_by_age': healed_by_age,
-        'suspected_by_age': suspected_by_age
-
+        'suspected_by_age': suspected_by_age,
+        'cases_by_date': cases_by_date
     }
 
     return JsonResponse(context, safe=False)
