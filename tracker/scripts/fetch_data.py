@@ -137,7 +137,7 @@ def getPDFLinks():
     Return:
         Dictionary with PDF links of confirmed and positives cases
     """
-    url = 'https://www.gob.mx/salud/documentos/nuevo-coronavirus-2019-ncov-comunicado-tecnico-diario?idiom=es'
+    url = 'https://www.gob.mx/salud/documentos/coronavirus-covid-19-comunicado-tecnico-diario-238449'
     page = requests.get(url)
     soup = BeautifulSoup(page.content, 'html.parser')
     links = {}
