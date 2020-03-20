@@ -77,6 +77,12 @@ nav {
   font-weight: 500;
   margin-bottom: 1em;
 }
+.share-icon {
+  padding: 1em;
+}
+.share-icon img {
+  width: 40px;
+}
 .total img {
   height: 48px;
   margin-bottom: 0.5em;

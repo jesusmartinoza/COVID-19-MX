@@ -1,8 +1,8 @@
-"N° Caso","Estado","Sexo","Edad","Fecha de Inicio de 
-síntomas","Identificación de 
-COVID-19 por RT-PCR 
-en tiempo real","Procedencia","Fecha del llegada a 
-México"
+"N° Caso","Estado","Sexo","Edad","Fecha de Inicio 
+de síntomas","Identificación de 
+COVID-19 por RT-
+PCR en tiempo real","Procedencia","Fecha del llegada 
+a México"
 "1","CIUDAD DE MÉXICO","M","35","22/02/2020","confirmado","Italia","22/02/2020"
 "2","SINALOA","M","41","22/02/2020","confirmado","Italia","21/02/2020"
 "3","CIUDAD DE MÉXICO","M","59","23/02/2020","confirmado","Italia","22/02/2020"
@@ -48,3 +48,4 @@ México"
 "43","SAN LUIS POTOSÍ","F","23","07/03/2020","confirmado","España","10/03/2020"
 "44","QUERETARO","F","54","10/03/2020","confirmado","España","10/03/2020"
 "45","OAXACA","M","61","10/03/2020","confirmado","Estados Unidos","10/03/2020"
+"46","QUERETARO","F","55","10/03/2020","confirmado","España","10/03/2020"
