@@ -97,6 +97,8 @@ def csvToDatabase(filename):
         state_name = row[1].replace('*', '')
         state = State()
 
+        print(f'Id: {row[0]}')
+
         # Get State from DB. If not possible then create a new register
         try:
             state = State.objects.filter(name=state_name)[0]
@@ -110,25 +112,28 @@ def csvToDatabase(filename):
             state = State(name=state_name, latitude=geo_result['lat'], longitude=geo_result['lng'])
             state.save()
 
-        if filename == 'suspected_cases':
-            case = SuspectedCase(id=row[0],
-                                 state_id=state,
-                                 sex=(1 if row[2] == 'M' else 2),
-                                 age=row[3],
-                                 symptoms_date= datetime.strptime(row[4], '%d/%m/%Y').date(),
-                                 origin_country=row[6],
-                                )
-            case.save()
-        else:
-            case = ConfirmedCase(id=row[0],
-                                 state_id=state,
-                                 sex=(1 if row[2] == 'M' else 2),
-                                 age=row[3],
-                                 symptoms_date= datetime.strptime(row[4], '%d/%m/%Y').date(),
-                                 origin_country=row[6],
-                                 healed=('*' in row[1]) # '*' indicates a healed case
-                                )
-            case.save()
+        try:
+            if filename == 'suspected_cases':
+                case = SuspectedCase(id=row[0],
+                                     state_id=state,
+                                     sex=(1 if row[3] == 'M' else 2),
+                                     age=row[4],
+                                     symptoms_date= datetime.strptime(row[5], '%d/%m/%Y').date(),
+                                     origin_country=row[7],
+                                    )
+                case.save()
+            else:
+                case = ConfirmedCase(id=row[0],
+                                     state_id=state,
+                                     sex=(1 if row[2] == 'M' else 2),
+                                     age=row[3],
+                                     symptoms_date= datetime.strptime(row[4], '%d/%m/%Y').date(),
+                                     origin_country=row[6],
+                                     healed=('*' in row[1]) # '*' indicates a healed case
+                                    )
+                case.save()
+        except:
+            pass
 
 def getPDFLinks():
     """
